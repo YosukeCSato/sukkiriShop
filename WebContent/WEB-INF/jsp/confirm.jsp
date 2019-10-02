@@ -13,9 +13,13 @@
 <p>メールアドレス<c:out value="${account.mail}" /></p>
 <p>名前<c:out value="${account.name}" /></p>
 <p>年齢<c:out value="${account.age}" /></p>
-<form action="/sukkiriShop/CreateAccountServlet?action" method="post">
+<form action="/sukkiriShop/CreateAccountServlet?action=confirm" method="post">
 <input type="submit" value="登録">
-<input type="hidden" name="account" value="${account}">
+<input type="hidden" name="userId" value="${account.userId}">
+<input type="hidden" name="pass" value="${account.pass}">
+<input type="hidden" name="mail" value="${account.mail}">
+<input type="hidden" name="name" value="${account.name}">
+<input type="hidden" name="age" value="${account.age}">
 </form>
 </body>
 </html>

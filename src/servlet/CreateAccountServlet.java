@@ -38,13 +38,9 @@ public class CreateAccountServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		if(action == null) {
-			String userId = request.getParameter("userId");
-			String pass = request.getParameter("pass");
-			String mail = request.getParameter("mail");
-			String name = request.getParameter("name");
-			int age = Integer.parseInt(request.getParameter("age"));
 
-			Account account = new Account(userId, pass, mail, name, age);
+
+			Account account = this.parseAccountFromRequest(request);
 
 			// セッションスコープに作成したアカウントを保存
 			HttpSession session = request.getSession();
@@ -53,8 +49,9 @@ public class CreateAccountServlet extends HttpServlet {
 			// 内容確認画面にフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/confirm.jsp");
 			dispatcher.forward(request, response);
-		} else {
-			Account account = (Account)request.getAttribute("account");
+			// if と else で別にメソッド作る
+		} else if (action == "confirm") {
+			Account account = this.parseAccountFromRequest(request);
 			AccountDAO dao = new AccountDAO();
 			dao.CreateUser(account);
 
@@ -65,6 +62,17 @@ public class CreateAccountServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registered.jsp");
 			dispatcher.forward(request, response);
 		}
+
+	}
+
+	private Account parseAccountFromRequest(HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		String pass = request.getParameter("pass");
+		String mail = request.getParameter("mail");
+		String name = request.getParameter("name");
+		int age = Integer.parseInt(request.getParameter("age"));
+
+		return new Account(userId, pass, mail, name, age);
 
 	}
 
