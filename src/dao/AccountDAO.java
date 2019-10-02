@@ -64,7 +64,7 @@ public class AccountDAO {
 		return account;
 	}
 
-	public Account CreateUser(Account account) {
+	public Account createUser(Account account) {
 
 		Connection conn = null;
 
@@ -76,7 +76,7 @@ public class AccountDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:/Users/ythe/Projects/sukkiriShop/sukkiriShop", "sa", "pass");
 
 			// INSERT文を準備
-			String sql = "INSERT INTO ACCOUNT (USER_ID, PASS, MAIL, NAME, AGE) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO account (user_id, pass, mail, name, age) VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, account.getUserId());
 			pStmt.setString(2, account.getPass());
@@ -86,11 +86,14 @@ public class AccountDAO {
 
 			// INSERTを実行
 			pStmt.executeUpdate();
+			System.out.println("INSERTをジッコゥしました");
 
 		} catch (SQLException e) {
+			System.out.println("????????????");
 			e.printStackTrace();
 			return null;
 		} catch (ClassNotFoundException e) {
+			System.out.println("!!!!!!!!!!!!!");
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -104,6 +107,7 @@ public class AccountDAO {
 			}
 		}
 		// 見つかったユーザーまたはnullを返す
+
 		return account;
 	}
 

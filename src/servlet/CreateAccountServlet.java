@@ -53,7 +53,7 @@ public class CreateAccountServlet extends HttpServlet {
 		} else if (action == "confirm") {
 			Account account = this.parseAccountFromRequest(request);
 			AccountDAO dao = new AccountDAO();
-			dao.CreateUser(account);
+			dao.createUser(account);
 
 			System.out.println(account.getName());
 
