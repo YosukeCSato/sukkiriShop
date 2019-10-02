@@ -10,6 +10,7 @@ public class AccountDAOTest {
 
 		testFindByLogin1();
 		testFindByLogin2();
+		test();
 
 	}
 
@@ -41,6 +42,19 @@ public class AccountDAOTest {
 			System.out.println("testFindByLogin2:成功しました");
 		} else {
 			System.out.println("testFindByLogin2:失敗しました");
+		}
+	}
+
+	public static void test() { // 正しいユーザーIDと間違ったパスワードでログインする
+
+		Account account = new Account("aaaa", "aadfsasdf", "faffd", "fdaffd", 2);
+		AccountDAO dao = new AccountDAO();
+		Account result = dao.createUser(account);
+
+		if(result == null) {
+			System.out.println("test:成功しました");
+		} else {
+			System.out.println("test:失敗しました");
 		}
 	}
 

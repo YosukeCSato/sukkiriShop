@@ -37,7 +37,11 @@ public class CreateAccountServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
+		System.out.println(action);
+
 		if(action == null) {
+
+			System.out.println("action!!!!!!! ");
 
 
 			Account account = this.parseAccountFromRequest(request);
