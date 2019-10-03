@@ -49,7 +49,7 @@ public class CreateAccountServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		Account account = this.parseAccountFromRequest(request);
-		// セッションスコープに作成したアカウントを保存
+		// セッションスコープに入力された情報を保存
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
 
@@ -63,6 +63,9 @@ public class CreateAccountServlet extends HttpServlet {
 		Account account = this.parseAccountFromRequest(request);
 		AccountDAO dao = new AccountDAO();
 		dao.createUser(account);
+		// セッションスコープに登録したアカウントを保存
+		HttpSession session = request.getSession();
+		session.setAttribute("account", account);
 
 		// 登録完了画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registered.jsp");
