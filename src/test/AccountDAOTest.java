@@ -2,23 +2,21 @@ package test;
 
 import dao.AccountDAO;
 import entity.Account;
-import entity.LoginUser;
 
 public class AccountDAOTest {
 
 	public static void main(String[] args) {
 
-		testFindByLogin1();
-		testFindByLogin2();
+		testFindByUserId1();
+		testFindByUserId2();
 		test();
 
 	}
 
-	public static void testFindByLogin1() { // 正しいユーザーIDとパスワードでログインする
+	public static void testFindByUserId1() { // 正しいユーザーIDとパスワードでログインする
 
-		LoginUser login = new LoginUser("minato", "1234");
 		AccountDAO dao = new AccountDAO();
-		Account result = dao.findByLogin(login);
+		Account result = dao.findByUserId("minato", "1234");
 
 		if(result != null &&
 				result.getUserId().contentEquals("minato") &&
@@ -26,22 +24,21 @@ public class AccountDAOTest {
 				result.getMail().equals("minato@sukkiri.com") &&
 				result.getName().equals("湊　雄輔") &&
 				result.getAge() == 23) {
-			System.out.println("testFindByLogin1:成功しました");
+			System.out.println("testFindByUserID1:成功しました");
 		} else {
-			System.out.println("testFindByLogin1:失敗しました");
+			System.out.println("testFindByUserId1:失敗しました");
 		}
 	}
 
-	public static void testFindByLogin2() { // 正しいユーザーIDと間違ったパスワードでログインする
+	public static void testFindByUserId2() { // 正しいユーザーIDと間違ったパスワードでログインする
 
-		LoginUser login = new LoginUser("minato", "12345");
 		AccountDAO dao = new AccountDAO();
-		Account result = dao.findByLogin(login);
+		Account result = dao.findByUserId("minato", "12345");
 
 		if(result == null) {
-			System.out.println("testFindByLogin2:成功しました");
+			System.out.println("testFindByUserId2:成功しました");
 		} else {
-			System.out.println("testFindByLogin2:失敗しました");
+			System.out.println("testFindByUserId2:失敗しました");
 		}
 	}
 

@@ -34,27 +34,39 @@ public class CreateAccountServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		if(action == null) {
-
-			Account account = this.parseAccountFromRequest(request);
-
-			// セッションスコープに作成したアカウントを保存
-			HttpSession session = request.getSession();
-			session.setAttribute("account", account);
-
-			// 内容確認画面にフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/confirm.jsp");
-			dispatcher.forward(request, response);
-			// if と else で別にメソッド作る
-		} else if (action.equals("confirm")) {
-			Account account = this.parseAccountFromRequest(request);
-			AccountDAO dao = new AccountDAO();
-			dao.createUser(account);
-
-			// 登録完了画面にフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registered.jsp");
-			dispatcher.forward(request, response);
+		if (action == null) {
+			this.confirmCreateAccount(request, response);
+			return;
 		}
+
+		if (action.equals("confirm")) {
+			this.createAccount(request, response);
+			return;
+		}
+	}
+
+	private void confirmCreateAccount(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Account account = this.parseAccountFromRequest(request);
+		// セッションスコープに作成したアカウントを保存
+		HttpSession session = request.getSession();
+		session.setAttribute("account", account);
+
+		// 内容確認画面にフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/confirm.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void createAccount(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Account account = this.parseAccountFromRequest(request);
+		AccountDAO dao = new AccountDAO();
+		dao.createUser(account);
+
+		// 登録完了画面にフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registered.jsp");
+		dispatcher.forward(request, response);
 
 	}
 

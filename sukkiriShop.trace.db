@@ -327,3 +327,7 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/ythe/
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:390)
 	... 42 more
+2019-10-03 16:16:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: 列 """USER_ID"" CHAR(10) NOT NULL" の値が長過ぎます: "'ythebobobob' (11)"
+Value too long for column """USER_ID"" CHAR(10) NOT NULL": "'ythebobobob' (11)"; SQL statement:
+INSERT INTO account (user_id, pass, mail, name, age) VALUES (?, ?, ?, ?, ?) [22001-199]
