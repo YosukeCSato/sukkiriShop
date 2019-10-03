@@ -21,6 +21,7 @@ import entity.Account;
 public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	public AccountDAO dao = AccountDAO.getInstance();
 	public PasswordGenerator pg = new PasswordGenerator();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,8 +68,7 @@ public class CreateAccountServlet extends HttpServlet {
 
 		String pass = request.getParameter("pass");
 		Account account = this.parseAccountFromRequest(request, pass);
-		AccountDAO dao = new AccountDAO();
-		dao.createUser(account);
+		this.dao.createUser(account);
 		// セッションスコープに登録したアカウントを保存
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);

@@ -10,6 +10,16 @@ import entity.Account;
 
 public class AccountDAO {
 
+	private static AccountDAO dao = new AccountDAO();
+
+	private AccountDAO() {
+
+	}
+
+	public static AccountDAO getInstance() {
+		return dao;
+	}
+
 	public String getPassword(String userId) {
 
 		Connection conn = null;

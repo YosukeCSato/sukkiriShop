@@ -15,7 +15,7 @@ public class AccountDAOTest {
 
 	public static void testFindByUserId1() { // 正しいユーザーIDとパスワードでログインする
 
-		AccountDAO dao = new AccountDAO();
+		AccountDAO dao = AccountDAO.getInstance();
 		Account result = dao.findByUserId("minato", "1234");
 
 		if(result != null &&
@@ -32,7 +32,7 @@ public class AccountDAOTest {
 
 	public static void testFindByUserId2() { // 正しいユーザーIDと間違ったパスワードでログインする
 
-		AccountDAO dao = new AccountDAO();
+		AccountDAO dao = AccountDAO.getInstance();
 		Account result = dao.findByUserId("minato", "12345");
 
 		if(result == null) {
@@ -45,7 +45,7 @@ public class AccountDAOTest {
 	public static void test() { // 正しいユーザーIDと間違ったパスワードでログインする
 
 		Account account = new Account("aaaa", "aadfsasdf", "faffd", "fdaffd", 2);
-		AccountDAO dao = new AccountDAO();
+		AccountDAO dao = AccountDAO.getInstance();
 		Account result = dao.createUser(account);
 
 		if(result == null) {
