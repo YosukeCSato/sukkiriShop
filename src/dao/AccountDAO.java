@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import bcrypt.PasswordGenerator;
 import entity.Account;
 
 public class AccountDAO {
@@ -76,7 +77,12 @@ public class AccountDAO {
 			String sql = "INSERT INTO account (user_id, pass, mail, name, age) VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, account.getUserId());
-			pStmt.setString(2, account.getPass());
+
+			// passwordの暗号化
+			PasswordGenerator pg = new PasswordGenerator();
+			String hashedPassword = pg.generatePassword(account.getPass());
+
+			pStmt.setString(2, hashedPassword);
 			pStmt.setString(3, account.getMail());
 			pStmt.setString(4, account.getName());
 			pStmt.setInt(5, account.getAge());
