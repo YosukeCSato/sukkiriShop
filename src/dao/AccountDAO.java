@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Account;
-import model.Login;
+import entity.Account;
+import entity.LoginUser;
 
 public class AccountDAO {
 
-	public Account findByLogin(Login login) {
+	public Account findByLogin(LoginUser login) {
 
 		Connection conn = null;
 		Account account = null;
@@ -66,8 +66,6 @@ public class AccountDAO {
 
 	public Account createUser(Account account) {
 
-		System.out.println("CreateUser");
-
 		Connection conn = null;
 
 		try {
@@ -87,30 +85,23 @@ public class AccountDAO {
 			pStmt.setInt(5, account.getAge());
 
 			// INSERTを実行
-			System.out.println("実行します");
 			pStmt.executeUpdate();
-			System.out.println("INSERTをジッコゥしました");
 
 		} catch (SQLException e) {
-			System.out.println("????????????");
 			e.printStackTrace();
 			return null;
 		} catch (ClassNotFoundException e) {
-			System.out.println("!!!!!!!!!!!!!");
 			e.printStackTrace();
 			return null;
 		} catch (Exception e) {
-				System.out.println("Exception!!!!!!!!!!!!!");
 				e.printStackTrace();
 				return null;
 		} finally {
-			System.out.println("finally");
 			if(conn != null) {
 				try {
 					conn.close();
 				} catch(SQLException e) {
 					e.printStackTrace();
-					System.out.println("ssssssss");
 					return null;
 				}
 			}

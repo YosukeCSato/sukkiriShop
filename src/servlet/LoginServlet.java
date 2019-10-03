@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Login;
-import model.LoginLogic;
+import entity.LoginUser;
+import logic.LoginLogic;
 
 /**
  * Servlet implementation class LoginServlet
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		String pass = request.getParameter("pass");
 
 		// ログイン処理の実行
-		Login login = new Login(userId, pass);
+		LoginUser login = new LoginUser(userId, pass);
 		LoginLogic bo = new LoginLogic();
 		boolean result = bo.execute(login);
 

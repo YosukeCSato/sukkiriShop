@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AccountDAO;
-import model.Account;
+import entity.Account;
 
 /**
  * Servlet implementation class CreateAccountServlet
@@ -27,9 +27,6 @@ public class CreateAccountServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -37,12 +34,7 @@ public class CreateAccountServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		System.out.println(action);
-
 		if(action == null) {
-
-			System.out.println("action!!!!!!! ");
-
 
 			Account account = this.parseAccountFromRequest(request);
 
@@ -54,13 +46,10 @@ public class CreateAccountServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/confirm.jsp");
 			dispatcher.forward(request, response);
 			// if と else で別にメソッド作る
-		} else if (action == "confirm") {
+		} else if (action.equals("confirm")) {
 			Account account = this.parseAccountFromRequest(request);
 			AccountDAO dao = new AccountDAO();
 			dao.createUser(account);
-
-			System.out.println(account.getName());
-
 
 			// 登録完了画面にフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registered.jsp");

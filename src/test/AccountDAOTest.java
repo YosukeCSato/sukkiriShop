@@ -1,8 +1,8 @@
 package test;
 
 import dao.AccountDAO;
-import model.Account;
-import model.Login;
+import entity.Account;
+import entity.LoginUser;
 
 public class AccountDAOTest {
 
@@ -16,7 +16,7 @@ public class AccountDAOTest {
 
 	public static void testFindByLogin1() { // 正しいユーザーIDとパスワードでログインする
 
-		Login login = new Login("minato", "1234");
+		LoginUser login = new LoginUser("minato", "1234");
 		AccountDAO dao = new AccountDAO();
 		Account result = dao.findByLogin(login);
 
@@ -34,7 +34,7 @@ public class AccountDAOTest {
 
 	public static void testFindByLogin2() { // 正しいユーザーIDと間違ったパスワードでログインする
 
-		Login login = new Login("minato", "12345");
+		LoginUser login = new LoginUser("minato", "12345");
 		AccountDAO dao = new AccountDAO();
 		Account result = dao.findByLogin(login);
 

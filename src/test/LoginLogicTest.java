@@ -1,7 +1,7 @@
 package test;
 
-import model.Login;
-import model.LoginLogic;
+import entity.LoginUser;
+import logic.LoginLogic;
 
 public class LoginLogicTest {
 
@@ -13,7 +13,7 @@ public class LoginLogicTest {
 
 	public static void testExecute1() {
 
-		Login login = new Login("minato", "1234");
+		LoginUser login = new LoginUser("minato", "1234");
 		LoginLogic bo = new LoginLogic();
 
 		if (bo.execute(login)) {
@@ -25,7 +25,7 @@ public class LoginLogicTest {
 
 	public static void testExecute2() {
 
-		Login login = new Login("minato", "12345");
+		LoginUser login = new LoginUser("minato", "12345");
 		LoginLogic bo = new LoginLogic();
 
 		if (!bo.execute(login)) {

@@ -1,15 +1,15 @@
-package model;
+package entity;
 
-public class Login implements java.io.Serializable {
+public class LoginUser implements java.io.Serializable {
 
 	private String userId;
 	private String pass;
 
-	public Login() {
+	public LoginUser() {
 
 	}
 
-	public Login(String userId, String pass) {
+	public LoginUser(String userId, String pass) {
 		this.userId = userId;
 		this.pass = pass;
 	}
