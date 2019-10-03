@@ -9,7 +9,7 @@
 <body>
 <form action="/sukkiriShop/LoginServlet" method="post">
 ユーザーID：<input type="text" name="userId"><br>
-パスワード：<input type="text" name="pass"><br>
+パスワード：<input type="password" name="pass"><br>
 <input type="submit" value="ログイン">
 </form>
 </body>

@@ -9,6 +9,7 @@
 </head>
 <body>
 登録内容確認
+<c:if test="${errorMsg == null}">
 <p>ユーザーID：<c:out value="${account.userId}" /></p>
 <p>メールアドレス：<c:out value="${account.mail}" /></p>
 <p>名前：<c:out value="${account.name}" /></p>
@@ -22,5 +23,8 @@
 <input type="hidden" name="age" value="${account.age}">
 <input type="hidden" name="action" value="confirm">
 </form>
+</c:if>
+<p><c:out value="${errorMsg}" /></p>
+<a href="/sukkiriShop/CreateAccountServlet">戻る</a>
 </body>
 </html>

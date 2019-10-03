@@ -54,6 +54,7 @@ public class CreateAccountServlet extends HttpServlet {
 
 		String pass = pg.generatePassword(request.getParameter("pass"));
 		Account account = this.parseAccountFromRequest(request, pass);
+
 		// セッションスコープに入力された情報を保存
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
@@ -69,7 +70,7 @@ public class CreateAccountServlet extends HttpServlet {
 		String pass = request.getParameter("pass");
 		Account account = this.parseAccountFromRequest(request, pass);
 		this.dao.createUser(account);
-		// セッションスコープに登録したアカウントを保存
+		// セッションスコープに新規作成したアカウントを保存
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
 
@@ -80,12 +81,35 @@ public class CreateAccountServlet extends HttpServlet {
 	}
 
 	private Account parseAccountFromRequest(HttpServletRequest request, String pass) {
+
 		String userId = request.getParameter("userId");
 		String mail = request.getParameter("mail");
 		String name = request.getParameter("name");
-		int age = Integer.parseInt(request.getParameter("age"));
+		String ageString = request.getParameter("age");
+		String errorMsg = this.checkInputValue(userId, ageString);
 
-		return new Account(userId, pass, mail, name, age);
+		HttpSession session = request.getSession();
+		session.setAttribute("errorMsg", errorMsg);
+
+		if (errorMsg == null) {
+			int age = Integer.parseInt(ageString);
+			return new Account(userId, pass, mail, name, age);
+		}
+		return null;
+	}
+
+	private String checkInputValue(String userId, String ageString) {
+
+		if (userId.length() > 20) {
+			return "ユーザーIDは20文字以下にしてください。";
+		}
+		try {
+			Integer.parseInt(ageString);
+			return null;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return "年齢は数値を入力してください。";
+		}
 
 	}
 
