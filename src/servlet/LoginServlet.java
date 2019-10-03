@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import entity.LoginUser;
 import logic.LoginLogic;
 
 /**
@@ -36,9 +35,13 @@ public class LoginServlet extends HttpServlet {
 		String pass = request.getParameter("pass");
 
 		// ログイン処理の実行
-		LoginUser login = new LoginUser(userId, pass);
+//		LoginUser login = new LoginUser(userId, pass);
+//		LoginLogic bo = new LoginLogic();
+//		boolean result = bo.execute(login);
+
+		// ログインユーザーインスタンスではなく、アカウントインスタンスでログインするように変更
 		LoginLogic bo = new LoginLogic();
-		boolean result = bo.execute(login);
+		boolean result = bo.execute(userId, pass);
 
 		// ログイン処理の成否によって処理を分岐
 		if (result) { // ログイン成功時

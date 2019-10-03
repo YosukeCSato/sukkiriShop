@@ -7,11 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Account;
-import entity.LoginUser;
 
 public class AccountDAO {
 
-	public Account findByLogin(LoginUser login) {
+	public Account findByUserId(String userId, String pass) {
 
 		Connection conn = null;
 		Account account = null;
@@ -26,8 +25,8 @@ public class AccountDAO {
 			// SELECT文を準備
 			String sql = "SELECT USER_ID, PASS, MAIL, NAME, AGE FROM ACCOUNT WHERE USER_ID=? AND PASS=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, login.getUserId());
-			pStmt.setString(2, login.getPass());
+			pStmt.setString(1, userId);
+			pStmt.setString(2, pass);
 
 			// SELECTを実行し、結果表を取得
 			ResultSet rs = pStmt.executeQuery();
@@ -36,8 +35,6 @@ public class AccountDAO {
 			// そのユーザーを表すAccountインスタンスを生成
 			if(rs.next()) {
 				// 結果表からデータを取得
-				String userId = rs.getString("USER_ID");
-				String pass = rs.getString("PASS");
 				String mail = rs.getString("MAIL");
 				String name = rs.getString("NAME");
 				int age = rs.getInt("AGE");
