@@ -6,12 +6,57 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bcrypt.PasswordGenerator;
 import entity.Account;
 
 public class AccountDAO {
 
-	public Account findByUserId(String userId, String pass) {
+	public String getPassword(String userId) {
+
+		Connection conn = null;
+		String pass = null;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// DBに接続
+			conn = DriverManager.getConnection("jdbc:h2:file:/Users/ythe/Projects/sukkiriShop/sukkiriShop", "sa", "pass");
+
+			// SELECT文を準備
+			String sql = "SELECT PASS FROM ACCOUNT WHERE USER_ID=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userId);
+
+			// SELECTを実行し、結果表を取得
+			ResultSet rs = pStmt.executeQuery();
+
+			// パスワードを返却
+			if(rs.next()) {
+				// 結果表からデータを取得
+				pass = rs.getString("PASS");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		// 見つかったpasswordまたはnullを返す
+		return pass;
+
+	}
+
+	public Account findByUserId(String userId, String passwordInDB) {
 
 		Connection conn = null;
 		Account account = null;
@@ -24,10 +69,9 @@ public class AccountDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:/Users/ythe/Projects/sukkiriShop/sukkiriShop", "sa", "pass");
 
 			// SELECT文を準備
-			String sql = "SELECT USER_ID, PASS, MAIL, NAME, AGE FROM ACCOUNT WHERE USER_ID=? AND PASS=?";
+			String sql = "SELECT USER_ID, PASS, MAIL, NAME, AGE FROM ACCOUNT WHERE USER_ID=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userId);
-			pStmt.setString(2, pass);
 
 			// SELECTを実行し、結果表を取得
 			ResultSet rs = pStmt.executeQuery();
@@ -40,7 +84,7 @@ public class AccountDAO {
 				String name = rs.getString("NAME");
 				int age = rs.getInt("AGE");
 
-				account = new Account(userId, pass, mail, name, age);
+				account = new Account(userId, passwordInDB, mail, name, age);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,12 +121,7 @@ public class AccountDAO {
 			String sql = "INSERT INTO account (user_id, pass, mail, name, age) VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, account.getUserId());
-
-			// passwordの暗号化
-			PasswordGenerator pg = new PasswordGenerator();
-			String hashedPassword = pg.generatePassword(account.getPass());
-
-			pStmt.setString(2, hashedPassword);
+			pStmt.setString(2, account.getPass());
 			pStmt.setString(3, account.getMail());
 			pStmt.setString(4, account.getName());
 			pStmt.setInt(5, account.getAge());

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bcrypt.PasswordGenerator;
 import logic.LoginLogic;
 
 /**
@@ -18,6 +19,8 @@ import logic.LoginLogic;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public PasswordGenerator pg = new PasswordGenerator();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,12 +37,7 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String pass = request.getParameter("pass");
 
-		// ログイン処理の実行
-//		LoginUser login = new LoginUser(userId, pass);
-//		LoginLogic bo = new LoginLogic();
-//		boolean result = bo.execute(login);
 
-		// ログインユーザーインスタンスではなく、アカウントインスタンスでログインするように変更
 		LoginLogic bo = new LoginLogic();
 		boolean result = bo.execute(userId, pass);
 
@@ -54,7 +52,12 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
 			dispatcher.forward(request, response);
 		} else { // ログイン失敗時
-			response.sendRedirect("/sukkiriShop/WelcomeServlet");
+
+			//response.sendRedirect("/sukkiriShop/WelcomeServlet");
+			// フォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginNG.jsp");
+			dispatcher.forward(request, response);
+
 		}
 
 	}

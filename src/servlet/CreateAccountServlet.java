@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bcrypt.PasswordGenerator;
 import dao.AccountDAO;
 import entity.Account;
 
@@ -19,6 +20,8 @@ import entity.Account;
 @WebServlet("/CreateAccountServlet")
 public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public PasswordGenerator pg = new PasswordGenerator();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -48,7 +51,8 @@ public class CreateAccountServlet extends HttpServlet {
 	private void confirmCreateAccount(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Account account = this.parseAccountFromRequest(request);
+		String pass = pg.generatePassword(request.getParameter("pass"));
+		Account account = this.parseAccountFromRequest(request, pass);
 		// セッションスコープに入力された情報を保存
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
@@ -60,7 +64,9 @@ public class CreateAccountServlet extends HttpServlet {
 
 	private void createAccount(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Account account = this.parseAccountFromRequest(request);
+
+		String pass = request.getParameter("pass");
+		Account account = this.parseAccountFromRequest(request, pass);
 		AccountDAO dao = new AccountDAO();
 		dao.createUser(account);
 		// セッションスコープに登録したアカウントを保存
@@ -73,9 +79,8 @@ public class CreateAccountServlet extends HttpServlet {
 
 	}
 
-	private Account parseAccountFromRequest(HttpServletRequest request) {
+	private Account parseAccountFromRequest(HttpServletRequest request, String pass) {
 		String userId = request.getParameter("userId");
-		String pass = request.getParameter("pass");
 		String mail = request.getParameter("mail");
 		String name = request.getParameter("name");
 		int age = Integer.parseInt(request.getParameter("age"));
