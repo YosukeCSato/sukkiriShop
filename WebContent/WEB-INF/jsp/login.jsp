@@ -3,13 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="../js/sample.js"></script>
 <meta charset="UTF-8">
 <title>スッキリ商店</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/JavaScript" src="/sukkiriShop/js/sample.js"></script>
 </head>
 <body>
-<h1><img src="../../WebContent/logo.png" alt="ログイン画面"></h1>
+<%-- <h1><img src="${pageContext.request.contextPath}/logo.png" alt="ログイン画面"></h1> --%>
+<h1><img src="/sukkiriShop/images/logo.png" alt="ログイン画面"></h1>
 <p>ログイン画面</p>
 <form action="/sukkiriShop/LoginServlet" method="post">
 ユーザーID：<input type="text" name="userId"><br>
