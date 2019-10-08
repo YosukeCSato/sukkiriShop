@@ -26,10 +26,9 @@ public class AdminServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
 
 		List<String> usersList = this.dao.getUsersList();
 
@@ -38,10 +37,27 @@ public class AdminServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		if (action == null) {
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/showUsers.jsp");
 			dispatcher.forward(request, response);
-		} else if (action.equals("delete")) {
+
+		} else if (action.equals("confirm")) {
+
+			String userId = request.getParameter("userId");
+			System.out.println(userId);
+
+			request.setAttribute("userId", userId);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/deleteUser.jsp");
+			dispatcher.forward(request, response);
+
+		} else if (action.equals("delete")) {
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/deleteUser.jsp");
+			System.out.println(action);
+			String userId = request.getParameter("userId");
+			request.setAttribute("userId", userId);
+
+			request.setAttribute("action", action);
 			dispatcher.forward(request, response);
 		}
 

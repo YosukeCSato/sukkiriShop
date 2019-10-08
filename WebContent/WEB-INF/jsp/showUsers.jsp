@@ -12,10 +12,10 @@ List<String> usersList = (List<String>) request.getAttribute("usersList");
 <title>ユーザー一覧</title>
 </head>
 <body>
-<form action="/sukkiriShop/AdminServlet?action=delete" method="post">
+<form action="/sukkiriShop/AdminServlet?action=confirm" method="post">
 <% for(int i = 0; i < usersList.size(); i++) { %>
 <% String user = usersList.get(i); %>
-<input type="checkbox" value="<%= user %>"><%= user %><br>
+<input type="checkbox" value="<%= user %>" name="userId"><%= user %><br>
 <% } %>
 <input type="submit" value="削除">
 </form>
