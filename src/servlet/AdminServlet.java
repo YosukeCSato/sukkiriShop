@@ -35,9 +35,19 @@ public class AdminServlet extends HttpServlet {
 
 		request.setAttribute("usersList", usersList);
 
+		String action = request.getParameter("action");
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/showUsers.jsp");
-		dispatcher.forward(request, response);
+		if (action == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/showUsers.jsp");
+			dispatcher.forward(request, response);
+		} else if (action.equals("delete")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/deleteUser.jsp");
+			dispatcher.forward(request, response);
+		}
+
+
+
+
 	}
 
 }
