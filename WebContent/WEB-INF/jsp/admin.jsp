@@ -7,6 +7,6 @@
 <title>管理者画面</title>
 </head>
 <body>
-
+<a href="/sukkiriShop/WelcomeServlet">トップへ</a>
 </body>
 </html>

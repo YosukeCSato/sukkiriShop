@@ -42,7 +42,12 @@ public class LoginServlet extends HttpServlet {
 		boolean result = bo.execute(userId, pass);
 
 		// ログイン処理の成否によって処理を分岐
-		if (result) { // ログイン成功時
+
+		if (result && userId.equals("admin")) { // Admin
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp");
+			dispatcher.forward(request, response);
+
+		} else if (result) { // ログイン成功時
 
 			// セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
@@ -50,10 +55,6 @@ public class LoginServlet extends HttpServlet {
 
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
-			dispatcher.forward(request, response);
-
-		} else if (result && userId.equals("admin")) { // Admin
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp");
 			dispatcher.forward(request, response);
 
 		} else { // ログイン失敗時
