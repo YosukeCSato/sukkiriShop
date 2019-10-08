@@ -22,7 +22,7 @@ public class AccountDAO {
 		return dao;
 	}
 
-	public List<String> checkUserId(String userId) {
+	public List<String> getUsersList() {
 		Connection conn = null;
 		List<String> userIdList = new ArrayList<String>();
 

@@ -102,7 +102,7 @@ public class CreateAccountServlet extends HttpServlet {
 
 	private String checkInputValue(String userId, String ageString) {
 
-		List<String> userIdList = this.dao.checkUserId(userId);
+		List<String> userIdList = this.dao.getUsersList();
 
 		for(String s : userIdList) {
 			if (s.equals(userId)) {
