@@ -9,8 +9,8 @@
 <script type="text/JavaScript" src="/sukkiriShop/js/sample.js"></script>
 </head>
 <body>
-<%-- <h1><img src="${pageContext.request.contextPath}/logo.png" alt="ログイン画面"></h1> --%>
-<h1><img src="/sukkiriShop/images/logo.png" alt="ログイン画面"></h1>
+<h1><img src="${pageContext.request.contextPath}/images/logo.png" alt="ログイン画面"></h1>
+<!-- <h1><img src="./images/logo.png" alt="ログイン画面"></h1> -->
 <p>ログイン画面</p>
 <form action="/sukkiriShop/LoginServlet" method="post">
 ユーザーID：<input type="text" name="userId"><br>

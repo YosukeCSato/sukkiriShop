@@ -51,6 +51,11 @@ public class LoginServlet extends HttpServlet {
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
 			dispatcher.forward(request, response);
+
+		} else if (result && userId.equals("admin")) { // Admin
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp");
+			dispatcher.forward(request, response);
+
 		} else { // ログイン失敗時
 
 			//response.sendRedirect("/sukkiriShop/WelcomeServlet");

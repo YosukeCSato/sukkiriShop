@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import entity.Account;
 
@@ -18,6 +20,50 @@ public class AccountDAO {
 
 	public static AccountDAO getInstance() {
 		return dao;
+	}
+
+	public List<String> checkUserId(String userId) {
+		Connection conn = null;
+		List<String> userIdList = new ArrayList<String>();
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// DBに接続
+			conn = DriverManager.getConnection("jdbc:h2:file:/Users/ythe/Projects/sukkiriShop/sukkiriShop", "sa", "pass");
+
+			// SELECT文を準備
+			String sql = "SELECT USER_ID FROM ACCOUNT";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SELECTを実行し、結果表を取得
+			ResultSet rs = pStmt.executeQuery();
+
+			// パスワードを返却
+			while(rs.next()) {
+				// 結果表からデータを取得し、リストに追加する
+				userIdList.add(rs.getString("USER_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		// 取得したuserIdを格納したリストを返す
+		return userIdList;
+
 	}
 
 	public String getPassword(String userId) {

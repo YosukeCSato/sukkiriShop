@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,6 +53,7 @@ public class CreateAccountServlet extends HttpServlet {
 	private void confirmCreateAccount(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// この時点でパスワードをハッシュ化する
 		String pass = pg.generatePassword(request.getParameter("pass"));
 		Account account = this.parseAccountFromRequest(request, pass);
 
@@ -99,6 +101,14 @@ public class CreateAccountServlet extends HttpServlet {
 	}
 
 	private String checkInputValue(String userId, String ageString) {
+
+		List<String> userIdList = this.dao.checkUserId(userId);
+
+		for(String s : userIdList) {
+			if (s.equals(userId)) {
+				return "入力されたユーザーIDは使用できません。";
+			}
+		}
 
 		if (userId.length() > 20) {
 			return "ユーザーIDは20文字以下にしてください。";
