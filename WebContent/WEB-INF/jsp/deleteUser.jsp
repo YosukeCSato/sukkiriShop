@@ -18,6 +18,7 @@ String action = (String)request.getAttribute("action");
   <input type="submit" value="削除">
   <input type="hidden" value="${userId}" name="userId">
   </form>
+  <a href="/sukkiriShop/AdminServlet"></a>
 <% } else {%>
   <p>${userId}を削除しました</p>
   <form action="/sukkiriShop/AdminServlet" method="post">

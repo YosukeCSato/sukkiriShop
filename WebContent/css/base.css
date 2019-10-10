@@ -1,0 +1,12 @@
+@charset "UTF-8";
+body {
+	font-size:120%;	/* フォントのサイズを95%にする */
+	font-family:"arial black", sans-serif;	/* フォントの種類をメイリオにする */
+	line-height:1.5;	/* フォントのサイズを95%にする	/* 不行の高さを1.5倍にする */
+	color:red;	/* 文字色を濃いめのグレーにする */
+}
+
+li {
+	list-style-type:none;
+	display:inline;
+}

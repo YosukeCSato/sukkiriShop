@@ -10,6 +10,7 @@ public class LoginLogic {
 
 	public boolean execute(String userId, String pass) {
 		String passwordInDB = this.dao.getPassword(userId);
+
 		boolean checkPassword = BCrypt.checkpw(pass, passwordInDB);
 		System.out.println(checkPassword);
 		System.out.println(pass);

@@ -9,7 +9,7 @@
 <script type="text/JavaScript" src="/sukkiriShop/js/sample.js"></script>
 </head>
 <body>
-<h1><img src="${pageContext.request.contextPath}/images/logo.png" alt="ログイン画面"></h1>
+<h1><img src="${pageContext.request.contextPath}/images/login.png" alt="ログイン画面" width="20%" height="20%"></h1>
 <!-- <h1><img src="./images/logo.png" alt="ログイン画面"></h1> -->
 <p>ログイン画面</p>
 <form action="/sukkiriShop/LoginServlet" method="post">

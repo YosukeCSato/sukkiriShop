@@ -19,5 +19,6 @@ List<String> usersList = (List<String>) request.getAttribute("usersList");
 <% } %>
 <input type="submit" value="削除">
 </form>
+<a href="/sukkiriShop/AdminServlet">戻る</a>
 </body>
 </html>
